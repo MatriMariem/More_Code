@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+import array as arr
+
+
 def sortarray(array):
     l = len(array)
     arr = list(array)
@@ -15,6 +18,6 @@ def sortarray(array):
         arr[k] = None
         array[j] = mini
     return array
-import array as arr
+
 a = arr.array('i', [8, 50, 0, -11, 74, 2, 33, 9, 120])
 print(sortarray(a))
