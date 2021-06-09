@@ -29,8 +29,24 @@ def TriangleColors(t):
                 seleColors = colors[:]
                 for p_prev_i in range(pi):
                     sprev = ', '.join(str(i) for i in t[ti][p_prev_i])
-                    seleColors.remove(d.get(sprev))
+                    if d.get(sprev) in seleColors:
+                        seleColors.remove(d.get(sprev))
+                for p_n_i in range(pi + 1, len(t[ti])):
+                    sprev = ', '.join(str(i) for i in t[ti][p_n_i])
+                    if d.get(sprev) in seleColors:
+                        seleColors.remove(d.get(sprev))
+                for t_next_i in range(ti + 1, len(t)):
+                    if (t[ti][pi] in t[t_next_i]):
+                        for p_next_i in range(len(t[t_next_i])):
+                            if t[t_next_i][p_next_i] != t[ti][pi]:
+                                snp = ', '.join(str(i) for i in t[t_next_i][p_next_i])
+                                if snp in d:
+                                    if d.get(snp) in seleColors:
+                                        seleColors.remove(d.get(snp))
+                if len(seleColors) == 0:
+                    return "No solution found"
                 d[sp] = seleColors[0]
+
 
     colorPoints = {}
     for c in colors:
@@ -51,6 +67,7 @@ def TriangleColors(t):
 
 
 
+print("Example 1")
 
 triangles = [
 [ [0,0], [3,0], [0,5] ],
@@ -62,6 +79,8 @@ print(TriangleColors(triangles))
 
 print()
 
+print("Example 2")
+
 """ There is no solution for this case but the program doesn't throw an error """
 triangles = [
 [ [0,0], [2.5,3], [5,0] ],
@@ -69,4 +88,19 @@ triangles = [
 [ [0,0], [2.5,3], [2.5,-4] ],
 [ [2.5,3], [2.5,-4], [5,0] ]
 ]
+print(TriangleColors(triangles))
+
+
+print()
+
+print("Example 3")
+
+triangles = [
+[[0, 0], [0.5, -1], [0.3, 0]],
+ [[0.3, 0], [0.5, -1], [1.5, 1]],
+ [[0.5, -1], [1.5, -0.2], [1.5, 1]],
+  [[1.5, -0.2], [2, -0.5], [1.5, 1]],
+  [[2, -0.5], [2, 0], [1.5, 1]],
+  [[0.3, 0], [0.5, 1], [0, 0]]
+  ]
 print(TriangleColors(triangles))
